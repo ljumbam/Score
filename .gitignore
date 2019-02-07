@@ -1,3 +1,5 @@
 docs*
 .idea*
 score.egg-info*
+dist*
+*.pyc
