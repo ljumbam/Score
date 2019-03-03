@@ -1,6 +1,6 @@
-from base import ScoreObject, KeyException
-from config import config
-from scale import MajorScale, MinorScale
+from .base import ScoreObject, KeyException
+from .config import config
+from .scale import MajorScale, MinorScale
 
 
 class Key(ScoreObject):

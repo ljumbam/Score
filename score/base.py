@@ -1,5 +1,5 @@
-from config import config
-from midi import MidiFactory
+from .config import config
+from .midi import MidiFactory
 
 
 def unique_permutations(elements):
@@ -38,7 +38,7 @@ class ScoreObject(object):
 
     @classmethod
     def strip_digits(cls, str_obj):
-        cls.validate_type(str_obj, basestring)
+        cls.validate_type(str_obj, str)
         return ''.join([i for i in str_obj if not i.isdigit()])
 
     @staticmethod

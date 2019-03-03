@@ -106,6 +106,3 @@ class TestDiatonicScale(unittest.TestCase):
         notes = sc.locrian_mode.note_sequence
         for i in range(0, len(notes)):
             self.assertEqual(notes[i].name, locrian[i])
-
-
-

@@ -1,5 +1,5 @@
-from base import ScoreObject
-from config import instrument_data
+from .base import ScoreObject
+from .config import instrument_data
 
 
 class Instrument(ScoreObject):
@@ -68,7 +68,7 @@ class Instrument(ScoreObject):
 
     @name.setter
     def name(self, name):
-        self.validate_type(name, basestring)
+        self.validate_type(name, str)
         if self.contains(name, instrument_data.INSTRUMENTS):
             self._is_percussion = False
             self._number = instrument_data.INSTRUMENTS[name][0]

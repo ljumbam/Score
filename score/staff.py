@@ -1,11 +1,11 @@
 import logging.config
 
-from base import StaffException
-from chord import Chord
-from config import config
-from instrument import Instrument
-from note import MusicObject, NoteBase, Note, Message
-from time_signature import TimeSignature
+from .base import StaffException
+from .chord import Chord
+from .config import config
+from .instrument import Instrument
+from .note import MusicObject, NoteBase, Note, Message
+from .time_signature import TimeSignature
 
 logging.config.dictConfig(config.LOGGING_CONFIG)
 

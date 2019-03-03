@@ -1,7 +1,7 @@
-from base import unique_permutations, ChordException
-from config import chord_data
-from config import config
-from note import Note, NoteBase
+from .base import unique_permutations, ChordException
+from .config import chord_data
+from .config import config
+from .note import Note, NoteBase
 
 
 class Chord(NoteBase):

@@ -1,11 +1,11 @@
 import logging.config
 import re
 
-from base import ScoreMusicObject, NoteException
-from config import config
-from config.controllers_data import MIDI_CONTROLLERS
-from instrument import Instrument
-from time_signature import TimeSignature
+from .base import ScoreMusicObject, NoteException
+from .config import config
+from .config.controllers_data import MIDI_CONTROLLERS
+from .instrument import Instrument
+from .time_signature import TimeSignature
 
 logging.config.dictConfig(config.LOGGING_CONFIG)
 
@@ -137,7 +137,7 @@ class NoteBase(MusicObject):
 
     @lyric.setter
     def lyric(self, lyric):
-        self.validate_type(lyric, basestring)
+        self.validate_type(lyric, str)
         self._lyric = lyric
 
     @property
@@ -182,7 +182,7 @@ class Message(NoteBase):
 
     @type.setter
     def type(self, msg_type):
-        self.validate_type(msg_type, basestring)
+        self.validate_type(msg_type, str)
         if msg_type == 'control_change':
             control = self._parameters.get('control', None)
             value = self._parameters.get('value', None)
@@ -372,7 +372,7 @@ class Note(NoteBase):
 
     @classmethod
     def is_note_name(cls, name):
-        if isinstance(name, basestring):
+        if isinstance(name, str):
             count_sharps = name.count('#')
             count_flats = name.count('-')
             if count_sharps and count_flats:

@@ -1,6 +1,6 @@
-from base import ScaleException
-from config import config
-from note import Note, MusicObject
+from .base import ScaleException
+from .config import config
+from .note import Note, MusicObject
 
 
 class ScaleBase(MusicObject):
@@ -97,7 +97,7 @@ class ScaleBase(MusicObject):
 
     @classmethod
     def is_scale_type(cls, scale_type):
-        if not isinstance(scale_type, basestring):
+        if not isinstance(scale_type, str):
             return False
         if not cls.contains(scale_type, config.SCALE_PROPS):
             return False

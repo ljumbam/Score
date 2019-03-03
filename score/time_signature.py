@@ -1,6 +1,6 @@
 import re
 
-from base import ScoreObject
+from .base import ScoreObject
 
 
 class TimeSignature(ScoreObject):
@@ -18,7 +18,7 @@ class TimeSignature(ScoreObject):
 
     @staticmethod
     def is_time_signature(time_signature):
-        if not isinstance(time_signature, basestring):
+        if not isinstance(time_signature, str):
             return False
         valid_format = re.compile('^\d+/\d+$')
         if not valid_format.match(str(time_signature)):

@@ -1,6 +1,6 @@
-from note import MusicObject
-from staff import Staff
-from time_signature import TimeSignature
+from .note import MusicObject
+from .staff import Staff
+from .time_signature import TimeSignature
 
 
 class Score(MusicObject):
@@ -38,7 +38,7 @@ class Score(MusicObject):
 
     @genre.setter
     def genre(self, genre):
-        self.validate_type(genre, basestring)
+        self.validate_type(genre, str)
         self._genre = genre
 
     @property
@@ -47,7 +47,7 @@ class Score(MusicObject):
 
     @music_by.setter
     def music_by(self, music_by):
-        self.validate_type(music_by, basestring)
+        self.validate_type(music_by, str)
         self._music_by = music_by
 
     @property
@@ -56,7 +56,7 @@ class Score(MusicObject):
 
     @lyrics_by.setter
     def lyrics_by(self, lyrics_by):
-        self.validate_type(lyrics_by, basestring)
+        self.validate_type(lyrics_by, str)
         self._lyrics_by = lyrics_by
 
     @property
@@ -65,7 +65,7 @@ class Score(MusicObject):
 
     @title.setter
     def title(self, title):
-        self.validate_type(title, basestring)
+        self.validate_type(title, str)
         self._title = title
 
 
