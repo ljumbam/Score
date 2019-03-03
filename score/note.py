@@ -426,7 +426,7 @@ class Note(NoteBase):
         elif len(digits) == 1:
             return int(digits[0])
         else:
-            raise ValueError('Invalid note name provided')
+            raise ValueError('Invalid note name {} provided'.format(note_name))
             # invalid octave. if this ever occurs
             # it will be from invalid note with two
             # digits e.g. C#2-3
