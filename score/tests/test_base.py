@@ -1,6 +1,6 @@
 import unittest
 
-from score import base
+from .. import base
 
 
 class TestBase(unittest.TestCase):

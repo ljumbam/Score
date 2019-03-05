@@ -3,13 +3,13 @@ import unittest
 
 from mido import MidiFile, bpm2tempo
 
-from score.chord import Chord
-from score.instrument import Instrument
-from score.midi import gcd, lcm, Midi, MidiScore
-from score.note import Message, Note, Rest
-from score.score import Score
-from score.staff import Staff, Clef
-from score.time_signature import TimeSignature
+from ..chord import Chord
+from ..instrument import Instrument
+from ..midi import gcd, lcm, Midi, MidiScore
+from ..note import Message, Note, Rest
+from ..score import Score
+from ..staff import Staff, Clef
+from ..time_signature import TimeSignature
 
 
 class GlobalMethods(unittest.TestCase):

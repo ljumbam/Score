@@ -1,8 +1,8 @@
 import unittest
 
-from score.base import ScaleException
-from score.note import Note
-from score.scale import ScaleBase, Scale, MajorScale, MinorScale, DiatonicScale
+from ..base import ScaleException
+from ..note import Note
+from ..scale import ScaleBase, Scale, MajorScale, MinorScale, DiatonicScale
 
 
 class TestScaleBase(unittest.TestCase):

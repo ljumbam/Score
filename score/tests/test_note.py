@@ -1,10 +1,10 @@
 import unittest
 
-from score.base import ScoreException
-from score.config import config
-from score.instrument import Instrument
-from score.note import MusicObject, Note, NoteBase, Message, Rest
-from score.time_signature import TimeSignature
+from ..base import ScoreException
+from ..config import config
+from ..instrument import Instrument
+from ..note import MusicObject, Note, NoteBase, Message, Rest
+from ..time_signature import TimeSignature
 
 
 class TestMusicObject(unittest.TestCase):

@@ -1,8 +1,8 @@
 import unittest
 
-from score.instrument import Instrument
-from score.score import Score
-from score.staff import Staff
+from ..instrument import Instrument
+from ..score import Score
+from ..staff import Staff
 
 
 class TestScore(unittest.TestCase):

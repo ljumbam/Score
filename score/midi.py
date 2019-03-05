@@ -1,6 +1,7 @@
 import itertools
 import math
 from fractions import Fraction
+from functools import reduce
 
 from mido import MidiFile, MidiTrack, MetaMessage, Message, bpm2tempo
 

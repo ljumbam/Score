@@ -1,7 +1,7 @@
 import unittest
 
-from score.base import ChordException, NoteException
-from score.chord import Chord, PopularChord, RomanNumeral
+from ..base import ChordException, NoteException
+from ..chord import Chord, PopularChord, RomanNumeral
 
 
 class TestChord(unittest.TestCase):
@@ -44,16 +44,17 @@ class TestChord(unittest.TestCase):
 
     def test_inversion_numbers(self):
         c = Chord()
-        inversions = [[0, 4, 7], [12, 16, 19], [24, 28, 31], [36, 40, 43],
-                      [48, 52, 55], [60, 64, 67], [72, 76, 79], [84, 88, 91],
-                      [96, 100, 103], [108, 112, 115], [4, 7, 12], [16, 19, 24],
-                      [28, 31, 36], [40, 43, 48], [52, 55, 60], [64, 67, 72],
-                      [76, 79, 84], [88, 91, 96], [100, 103, 108], [112, 115, 120],
-                      [7, 12, 16], [19, 24, 28], [31, 36, 40], [43, 48, 52], [55, 60, 64],
+        inversions1 = [[7, 12, 16], [19, 24, 28], [31, 36, 40], [43, 48, 52], [55, 60, 64],
                       [67, 72, 76], [79, 84, 88], [91, 96, 100], [103, 108, 112],
-                      [115, 120, 124]]
-        self.assertEqual(len(c.inversion_numbers), 30)
-        self.assertEqual(c.inversion_numbers, inversions)
+                      [115, 120, 124], [4, 7, 12], [16, 19, 24], [28, 31, 36], [40, 43, 48],
+                      [52, 55, 60], [64, 67, 72], [76, 79, 84], [88, 91, 96], [100, 103, 108],
+                      [112, 115, 120], [0, 4, 7], [12, 16, 19], [24, 28, 31], [36, 40, 43],
+                      [48, 52, 55], [60, 64, 67], [72, 76, 79], [84, 88, 91], [96, 100, 103],
+                      [108, 112, 115]]
+        inversions2 = c.inversion_numbers
+        for chd in inversions2:
+            self.assertIn(chd, inversions1)
+        self.assertEqual(len(inversions2), 30)
 
 
 class TestPopularChord(unittest.TestCase):

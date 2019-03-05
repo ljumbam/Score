@@ -1,9 +1,9 @@
 import unittest
 
-from score.base import NoteException, ScoreException, StaffException
-from score.chord import Chord
-from score.note import Note, Rest, Message
-from score.staff import Clef, Staff
+from ..base import NoteException, ScoreException, StaffException
+from ..chord import Chord
+from ..note import Note, Rest, Message
+from ..staff import Clef, Staff
 
 
 class TestClef(unittest.TestCase):
@@ -65,7 +65,8 @@ class TestClef(unittest.TestCase):
         c = Clef('Treble')
         for n in notes:
             c.add_note(n)
-        self.assertEqual(c.unique_quarter_lengths, [1.5, 1.0, 2.0, 2.5])
+        for nte in c.unique_quarter_lengths:
+            self.assertIn(nte, [1.0, 2.0, 2.5, 1.5])
 
 
 class TestStaff(unittest.TestCase):

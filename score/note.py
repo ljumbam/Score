@@ -446,7 +446,8 @@ class Note(NoteBase):
 
     @staticmethod
     def letter_from_name(note_name):
-        pitch = filter(lambda x: x.isalpha(), note_name)
+        # pitch = filter(lambda x: x.isalpha(), note_name) # filter works differently in python 3
+        pitch = ''.join(letter for letter in note_name if letter.isalpha())
         return pitch.strip('-').strip('#').upper()
 
     @staticmethod
@@ -479,7 +480,7 @@ class Note(NoteBase):
 
     @staticmethod
     def octave_from_number(num):
-        return (num - (num % 12)) / 12
+        return int((num - (num % 12))/12)
 
     @staticmethod
     def pitch_from_name(note_name):

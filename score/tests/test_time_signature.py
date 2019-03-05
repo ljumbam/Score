@@ -1,6 +1,6 @@
 import unittest
 
-from score.time_signature import TimeSignature
+from ..time_signature import TimeSignature
 
 
 class TestTimeSignature(unittest.TestCase):

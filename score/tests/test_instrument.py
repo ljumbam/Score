@@ -1,7 +1,7 @@
 import unittest
 
-from score.config import instrument_data
-from score.instrument import Instrument
+from ..config import instrument_data
+from ..instrument import Instrument
 
 
 class TestInstrument(unittest.TestCase):
