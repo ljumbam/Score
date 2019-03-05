@@ -12,4 +12,7 @@ setup(
     license=open('LICENSE.txt'),
     description=DESCRIPTION,
     long_description=open('README.md').read(),
+    install_requires=[
+        'mido'
+    ]
 )
