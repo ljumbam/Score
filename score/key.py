@@ -184,15 +184,7 @@ class KeySignature(ScoreObject):
 
 
 def main():
-    k = Key('d-')
-    print (k)
-
-    a = Accidentals()
-    a.sharpen = ['a', 'd']
-    print a.sharpen, a.flatten, a.naturalize
-
-    ks = KeySignature('c')
-    print ks
+    pass
 
 
 if __name__ == '__main__':
