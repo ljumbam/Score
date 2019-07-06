@@ -1,3 +1,6 @@
+import copy
+
+
 INSTRUMENTS = {
         # MIDI instruments
         'Grand Piano'                   :[0, 'pno.'],
@@ -180,3 +183,25 @@ PERCUSSION = {
         'Mute Triangle'			:[80, ''],
         'Open Triangle'			:[81, '']
 }
+
+
+class InstrumentEnums(object):
+
+    def __init__(self):
+        for instr in INSTRUMENTS:
+            name = copy.deepcopy(instr)
+            instr = instr.replace('(', ' ').replace(')', '').strip()
+            instr = instr.replace('  ', '_').replace(' ', '_')
+            instr = instr.replace('-', '_').upper()
+            setattr(self, instr, name)
+
+
+class PercussionEnums(object):
+
+    def __init__(self):
+        for instr in PERCUSSION:
+            name = copy.deepcopy(instr)
+            instr = instr.replace('(', ' ').replace(')', '').strip()
+            instr = instr.replace('  ', '_').replace(' ', '_')
+            instr = instr.replace('-', '_').upper()
+            setattr(self, instr, name)

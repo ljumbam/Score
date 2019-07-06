@@ -1,6 +1,6 @@
-from .base import ScaleException
-from .config import config
-from .note import Note, MusicObject
+from score.base import ScaleException
+from score.config import config
+from score.note import Note, MusicObject
 
 
 class ScaleBase(MusicObject):
@@ -41,6 +41,44 @@ class ScaleBase(MusicObject):
         for i in self._intervals[1:]:
             current.next = Note(self._tonic.number + i)
             current = current.next
+
+    def leap(self, note, leap, forward=True):
+        has_pitch, idx = self.has_pitch(note)
+        if not has_pitch:
+            raise ScaleException('The note {} is not part of the scale'.format(note))
+
+        if leap == 0:
+            return note
+
+        note_list = self.note_sequence
+        note_list = note_list[idx:] + note_list[:idx]
+
+        if not forward:
+            note_list.reverse()
+            note_list = [note_list[-1]] + note_list[:-1]
+
+        quot, next_idx = divmod(leap, len(note_list))
+        next_note = note_list[next_idx]
+
+        return note.closest_note(Note.strip_digits(next_note.name))
+
+    def has_pitch(self, note):
+        if not isinstance(note, Note):
+            note = Note(note)
+        for i in range(0, len(self.note_sequence)):
+            nte = self.note_sequence[i]
+            if Note.are_equal(nte, note) or \
+                    Note.strip_digits(nte.name) == Note.strip_digits(note.name):
+                return True, i
+        return False, None
+
+    @property
+    def is_major_scale(self):
+        return self._intervals == [0, 2, 4, 5, 7, 9, 11]
+
+    @property
+    def is_minor_scale(self):
+        return self._intervals == [0, 2, 3, 5, 7, 8, 10]
 
     @property
     def intervals(self):

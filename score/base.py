@@ -1,5 +1,5 @@
-from .config import config
-from .midi import MidiFactory
+from score.config import config
+from score.midi import MidiFactory
 
 
 def unique_permutations(elements):

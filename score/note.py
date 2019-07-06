@@ -1,11 +1,11 @@
 import logging.config
 import re
 
-from .base import ScoreMusicObject, NoteException
-from .config import config
-from .config.controllers_data import MIDI_CONTROLLERS
-from .instrument import Instrument
-from .time_signature import TimeSignature
+from score.base import ScoreMusicObject, NoteException
+from score.config import config
+from score.config.controllers_data import MIDI_CONTROLLERS
+from score.instrument import Instrument
+from score.time_signature import TimeSignature
 
 logging.config.dictConfig(config.LOGGING_CONFIG)
 
@@ -37,6 +37,14 @@ class MusicObject(ScoreMusicObject):
                 objects.append(current.next)
                 current = current.next
         return objects
+
+    @property
+    def total_quarter_length(self):
+        notes = self.note_sequence
+        total_quarter_length = 0
+        for nte in notes:
+            total_quarter_length += nte.quarter_length
+        return total_quarter_length
 
     @property
     def instrument(self):
@@ -228,6 +236,35 @@ class Note(NoteBase):
 
     def __repr__(self):
         return '{0} {1}'.format(self.name, str(self.quarter_length))
+
+    def closest_note(self, letter, forward=True):
+        if forward:
+            nte = self.closest_note_forward(letter) or self.closest_note_backward(letter)
+        else:
+            nte = self.closest_note_backward(letter) or self.closest_note_forward(letter)
+        return nte
+
+    def closest_note_forward(self, letter):
+        nte_num = self.number + 1
+        while nte_num <= config.MAX_NOTE_NUM:
+            nte = Note(nte_num)
+            names = [self.strip_digits(nte.name)]
+            if nte.enharmonic:
+                names.append(self.strip_digits(nte.enharmonic))
+            if letter in names:
+                return nte
+            nte_num += 1
+
+    def closest_note_backward(self, letter):
+        nte_num = self.number - 1
+        while nte_num >= config.MIN_NOTE_NUM:
+            nte = Note(nte_num)
+            names = [self.strip_digits(nte.name)]
+            if nte.enharmonic:
+                names.append(self.strip_digits(nte.enharmonic))
+            if letter in names:
+                return nte
+            nte_num -= 1
 
     @property
     def name(self):

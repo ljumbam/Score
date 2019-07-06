@@ -42,6 +42,27 @@ class TestClef(unittest.TestCase):
         self.assertEqual(seq[1], msgs[1])
         self.assertRaises(ScoreException, c.add_message, Note('D'))
 
+    def test_round_up(self):
+        c = Clef()
+        qls = [1.0, 2.0, 3.0]
+        for ql in qls:
+            c.add_note(Note(60), quarter_length=ql)
+        self.assertEqual(c.total_quarter_length, sum(qls))
+
+        offset = 4.0
+        lower_total_ql = sum(qls) - offset
+        higher_total_ql = sum(qls) + offset
+
+        c.round_up(lower_total_ql)
+        self.assertEqual(len(c.note_sequence), len(qls))
+        self.assertEqual(c.total_quarter_length, sum(qls))
+
+        c.round_up(higher_total_ql)
+        self.assertEqual(len(c.note_sequence), len(qls) + 1)
+        self.assertEqual(c.total_quarter_length, sum(qls) + offset)
+        self.assertTrue(isinstance(c.note_sequence[-1], Rest))
+
+
     def test_update_neighbors(self):
         c = Clef()
         msgs = [Message('control_change', control=10, value=10),
@@ -70,6 +91,37 @@ class TestClef(unittest.TestCase):
 
 
 class TestStaff(unittest.TestCase):
+
+    def test_round_up(self):
+        clef1_ql = [1.0, 1.0, 1.0, 1.0, 1.0]
+        clef2_ql = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+        s = Staff('GreatStaff')
+        for ql in clef1_ql:
+            s.clefs[0].add_note(Note(60), quarter_length=ql)
+        for ql in clef2_ql:
+            s.clefs[1].add_note(Note(60), quarter_length=ql)
+
+        self.assertEqual(s.clefs[0].total_quarter_length, sum(clef1_ql))
+        self.assertEqual(len(s.clefs[0].note_sequence), len(clef1_ql))
+        self.assertEqual(s.clefs[1].total_quarter_length, sum(clef2_ql))
+        self.assertEqual(len(s.clefs[1].note_sequence), len(clef2_ql))
+
+        s.round_up()
+        self.assertEqual(s.clefs[0].total_quarter_length, s.clefs[1].total_quarter_length)
+        self.assertEqual(len(s.clefs[0].note_sequence), len(clef1_ql) + 1)
+        self.assertTrue(isinstance(s.clefs[0].note_sequence[-1], Rest))
+        self.assertEqual(len(s.clefs[1].note_sequence), len(clef2_ql))
+
+        new_total_quarter_length = 12
+        s.round_up(new_total_quarter_length)
+        self.assertEqual(s.clefs[0].total_quarter_length, new_total_quarter_length)
+        self.assertEqual(s.clefs[1].total_quarter_length, new_total_quarter_length)
+        self.assertEqual(len(s.clefs[0].note_sequence), len(clef1_ql) + 2)
+        self.assertTrue(isinstance(s.clefs[0].note_sequence[-1], Rest))
+        self.assertTrue(isinstance(s.clefs[0].note_sequence[-2], Rest))
+        self.assertEqual(len(s.clefs[1].note_sequence), len(clef2_ql) + 1)
+        self.assertTrue(isinstance(s.clefs[1].note_sequence[-1], Rest))
+
 
     def test_property_setters(self):
         names = ['TrebleStaff', 'BassStaff', 'PercussionStaff']

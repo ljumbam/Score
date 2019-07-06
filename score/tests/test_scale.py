@@ -7,6 +7,29 @@ from ..scale import ScaleBase, Scale, MajorScale, MinorScale, DiatonicScale
 
 class TestScaleBase(unittest.TestCase):
 
+    def test_has_pitch(self):
+        sb = ScaleBase('C')
+
+        scale_notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+        non_scale_notes = ['C#', 'D#', 'F#', 'G#', 'A#']
+
+        for i in range(0, len(scale_notes)):
+            nte = scale_notes[i]
+            has_pitch, idx = sb.has_pitch(nte)
+            self.assertTrue(has_pitch)
+            self.assertEqual(idx, i)
+
+        for nte in non_scale_notes:
+            has_pitch, idx = sb.has_pitch(nte)
+            self.assertFalse(has_pitch)
+            self.assertEqual(idx, None)
+
+    def test_leap(self):
+        sb = ScaleBase('C')
+        self.assertRaises(ScaleException, sb.leap, 'D#', 1)
+        self.assertEqual(sb.leap(Note('D3'), 2).name, 'F3')
+        self.assertEqual(sb.leap(Note('D3'), 2, forward=False).name, 'B3')
+
     def test_property_setters(self):
         sb = ScaleBase('C')
         notes = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4']

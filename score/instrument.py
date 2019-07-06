@@ -1,5 +1,5 @@
-from .base import ScoreObject
-from .config import instrument_data
+from score.base import ScoreObject
+from score.config import instrument_data
 
 
 class Instrument(ScoreObject):

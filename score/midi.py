@@ -7,7 +7,7 @@ from mido import MidiFile, MidiTrack, MetaMessage, Message, bpm2tempo
 
 
 def gcd(*numbers):
-    from fractions import gcd
+    from math import gcd
     return reduce(gcd, numbers)
 
 
@@ -70,7 +70,7 @@ class Midi(MidiFile):
 
     def add_obj(self, obj, track_index=0, channel=0):
         self.create_track_if_none(track_index)
-        if type(obj).__name__ == 'Chord':
+        if type(obj).__name__ in ['Chord', 'RomanNumeral', 'PopularChord']:
             self.add_chord(obj, track_index=track_index, channel=channel)
         elif type(obj).__name__ in ['Note', 'Rest']:
             self.add_note(obj, track_index=track_index, channel=channel)
@@ -113,6 +113,7 @@ class Midi(MidiFile):
                                                     velocity=note.release_velocity))
 
     def _score_to_midi(self):
+        self.tracks = []
         first_track = MidiTrack()
         score = self._score
         if hasattr(score, 'copyright'):

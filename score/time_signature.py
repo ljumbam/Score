@@ -1,6 +1,6 @@
 import re
 
-from .base import ScoreObject
+from score.base import ScoreObject
 
 
 class TimeSignature(ScoreObject):

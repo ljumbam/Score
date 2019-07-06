@@ -1,6 +1,7 @@
-from .note import MusicObject
-from .staff import Staff
-from .time_signature import TimeSignature
+from score.base import ScoreException
+from score.note import MusicObject
+from score.staff import Staff
+from score.time_signature import TimeSignature
 
 
 class Score(MusicObject):
@@ -27,6 +28,38 @@ class Score(MusicObject):
                     staff.instrument.is_percussion == is_percussion:
                 return True
         return False
+
+    def round_up(self, quarter_length=None):
+        longest_quater_length = 0
+        for staff in self.staves:
+            staff.round_up(quarter_length=quarter_length)
+            tql = staff.clefs[0].total_quarter_length
+            if longest_quater_length < tql:
+                longest_quater_length = tql
+        for staff in self.staves:
+            staff.round_up(quarter_length=longest_quater_length)
+
+    def merge(self, score):
+        self.validate_type(score, Score)
+        self.round_up()
+        score.round_up()
+
+        if len(self.staves) != len(score.staves):
+            raise ScoreException('Cannot merge two scores with '
+                                 'different number of staves.')
+        for i in range(0, len(self.staves)):
+            if self.staves[i].name != score.staves[i].name:
+                raise ScoreException('Encountered mismatching staves '
+                                     'while attempted to merge scores.')
+
+        for i in range(0, len(self.staves)):
+            stf = self.staves[i]
+            for j in range(0, len(stf.clefs)):
+                clf = stf.clefs[j]
+                if len(score.staves[i].clefs[j].note_sequence) > 0:
+                    nte = score.staves[i].clefs[j].note_sequence[0]
+                    if len(clf.note_sequence) > 0:
+                        clf.note_sequence[-1].next = nte
 
     @property
     def staves(self):

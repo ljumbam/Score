@@ -2,9 +2,37 @@ import unittest
 
 from ..base import ChordException, NoteException
 from ..chord import Chord, PopularChord, RomanNumeral
+from ..note import Note
 
 
 class TestChord(unittest.TestCase):
+
+    def test_treblelize(self):
+        chd = Chord([Note("C1"), Note("E1"), Note("C2")])
+        chd.quarter_length = 2.0
+
+        new_chord = Chord.treblelize(chd)
+        self.assertEqual(chd.quarter_length, new_chord.quarter_length)
+        new_numbers = [60, 64, 72]
+        for i in range(0, len(new_chord.notes)):
+            self.assertEqual(new_numbers[i], new_chord.notes[i].number)
+
+    def test_bassify(self):
+        chd = Chord([Note("C1"), Note("E1"), Note("C2")])
+        chd.quarter_length = 2.0
+
+        new_chord = Chord.bassify(chd)
+        self.assertEqual(chd.quarter_length, new_chord.quarter_length)
+        new_numbers = [36, 40, 48]
+        for i in range(0, len(new_chord.notes)):
+            self.assertEqual(new_numbers[i], new_chord.notes[i].number)
+
+    def test_has_pitch(self):
+        chd = RomanNumeral('C', numeral='I')
+        self.assertTrue(chd.has_pitch(Note('C')))
+        self.assertTrue(chd.has_pitch(Note('E8')))
+        self.assertTrue(chd.has_pitch(Note('G1')))
+        self.assertFalse(chd.has_pitch(Note('D')))
 
     def test_property_setters(self):
         example = [60, 64, 68]

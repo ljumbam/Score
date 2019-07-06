@@ -26,6 +26,14 @@ class TestMusicObject(unittest.TestCase):
         self.assertEqual(notes[1].number, n.next.number)
         self.assertEqual(notes[2].number, n.next.next.number)
 
+    def test_total_quarter_length(self):
+        quarter_lengths = [2.0, 4.0, 6.0, 8.0]
+        nte = Note(60, quarter_length=quarter_lengths[0])
+        nte.next = Note(60, quarter_length=quarter_lengths[1])
+        nte.next.next = Note(60, quarter_length=quarter_lengths[2])
+        nte.next.next.next = Note(60, quarter_length=quarter_lengths[3])
+        self.assertEqual(nte.total_quarter_length, sum(quarter_lengths))
+
     def test_property_setters(self):
         ts = '3/4'
         tempo = 92
@@ -101,6 +109,21 @@ class TestMessage(unittest.TestCase):
 
 
 class TestNote(unittest.TestCase):
+
+    def test_closest_note(self):
+        nte = Note('C10')
+        closest = {
+            'D': ['D10'],
+            'D#': ['D#10', 'E-10'],
+            'E': ['E10'],
+            'F': ['F10'],
+            'A': ['A9'],
+            'B': ['B9'],
+            'C': ['C9']
+        }
+        for letter in closest:
+            closest_nte = nte.closest_note(letter)
+            self.assertIn(closest_nte.name, closest[letter])
 
     def test_property_setters(self):
         num = 60
