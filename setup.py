@@ -5,7 +5,7 @@ DESCRIPTION = 'A tool for writing music.'
 
 setup(
     name='score',
-    version='0.0.1',
+    version='1.0.0',
     author='Loayeh Jumbam',
     author_email='loayeh@algotunes.com',
     packages=setuptools.find_packages(),
