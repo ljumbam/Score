@@ -36,7 +36,7 @@ class Midi(MidiFile):
 
     def add_staff(self, staff, initial_track_index=None):
         if initial_track_index is None:
-            initial_track_index = 0 if len(self.tracks) == 0 else len(self.tracks)
+            initial_track_index = len(self.tracks) # 0 if len(self.tracks) == 0 else len(self.tracks)
         for i in range(0, len(staff.clefs)):
             clef = staff.clefs[i]
             track_index = i + initial_track_index
@@ -46,6 +46,7 @@ class Midi(MidiFile):
     def add_clef(self, clef, track_index, channel):
         self.create_track_if_none(track_index)
         channel = self.correct_channel_number(channel, clef.instrument)
+        self.change_instrument_message(clef.instrument, self.tracks[track_index], channel=channel)
         current = clef.head
         if current:
             self.add_obj(current, track_index=track_index, channel=channel)

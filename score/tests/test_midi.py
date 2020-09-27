@@ -126,7 +126,7 @@ class TestMidi(unittest.TestCase):
         m.add_clef(c, track_index=0, channel=1)
         msg_notes = [n for n in notes for _ in (0, 1)]
         for i in range(0, len(msg_notes)):
-            self.assertEqual(m.tracks[0][i].note, msg_notes[i])
+            self.assertEqual(m.tracks[0][i+1].note, msg_notes[i])
 
         c2 = Clef()
         c2.add_note(40)
