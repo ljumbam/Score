@@ -80,9 +80,7 @@ class Chord(NoteBase):
         return new_numbers
 
     @staticmethod
-    def treblelize(chd):
-        top = 84
-        bottom = 60
+    def treblelize(chd, top=84, bottom=60):
         numbers = chd.note_numbers
         new_numbers = Chord.shift_range(numbers, top, bottom)
         new_chd = Chord(new_numbers)
@@ -90,9 +88,7 @@ class Chord(NoteBase):
         return new_chd
 
     @staticmethod
-    def bassify(chd):
-        top = 60
-        bottom = 36
+    def bassify(chd, top=60, bottom=36):
         numbers = chd.note_numbers
         new_numbers = Chord.shift_range(numbers, top, bottom)
         new_chd = Chord(new_numbers)
