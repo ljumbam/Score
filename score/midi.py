@@ -121,9 +121,9 @@ class Midi(MidiFile):
             self.add_copyright(score.copyright, first_track)
         if hasattr(score, 'time_signature'):
             self.add_time_signature_message(score.time_signature, first_track)
-        # if hasattr(score, 'key_signature'):
-        #     key = self.scorekey_to_midokey(score.key_signature)
-        #     self.add_key_signature_message(key, first_track)
+        if hasattr(score, 'key_signature'):
+            key = self.scorekey_to_midokey(score.key_signature)
+            self.add_key_signature_message(key, first_track)
         if hasattr(score, 'instrument'):
             self.set_track_instrument(score.instrument, first_track)
             self.change_instrument_message(score.instrument, first_track)
