@@ -13,10 +13,16 @@ class TimeSignature(ScoreObject):
         self.value = value
 
     def __str__(self):
-        return self._value
+        return str(self._value)
 
     def __repr__(self):
-        return self._value
+        return str(self._value)
+
+    @property
+    def dict(self):
+        return {
+            "value": self._value
+        }
 
     @staticmethod
     def is_time_signature(time_signature):

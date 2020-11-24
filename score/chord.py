@@ -68,6 +68,13 @@ class Chord(NoteBase):
         cns = ChordConsonance(notes=self.notes)
         self._consonance = cns.consonance
 
+    @property
+    def dict(self):
+        return {
+            "chord_input": self._input,
+            "quarter_length": self._quarter_length
+        }
+
     @staticmethod
     def shift_range(numbers, top, bottom, interval=12):
         new_numbers = []
