@@ -24,6 +24,12 @@ class TestScaleBase(unittest.TestCase):
             self.assertFalse(has_pitch)
             self.assertEqual(idx, None)
 
+    def test_dict(self):
+        sb = ScaleBase('C')
+        sb_copy = ScaleBase(**sb.dict)
+        self.assertEqual(sb.tonic.name, sb_copy.tonic.name)
+        self.assertEqual(sb.intervals, sb_copy.intervals)
+
     def test_leap(self):
         sb = ScaleBase('C')
         self.assertRaises(ScaleException, sb.leap, 'D#', 1)
@@ -88,6 +94,13 @@ class TestScale(unittest.TestCase):
         sc.scale_type = 'tritonic'
         self.assertEqual(sc.intervals, [0, 2, 3])
 
+    def test_dict(self):
+        sc = Scale('C')
+        sc_copy = Scale(**sc.dict)
+        self.assertEqual(sc.tonic.name, sc_copy.tonic.name)
+        self.assertEqual(sc.intervals, sc_copy.intervals)
+        self.assertEqual(sc.scale_type, sc_copy.scale_type)
+
 
 class TestMajorScale(unittest.TestCase):
 
@@ -129,3 +142,8 @@ class TestDiatonicScale(unittest.TestCase):
         notes = sc.locrian_mode.note_sequence
         for i in range(0, len(notes)):
             self.assertEqual(notes[i].name, locrian[i])
+
+    def test_dict(self):
+        s = DiatonicScale('C')
+        s_copy = DiatonicScale(**s.dict)
+        self.assertEqual(s.ionian_tonic, s_copy.ionian_tonic)

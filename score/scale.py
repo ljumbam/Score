@@ -14,10 +14,10 @@ class ScaleBase(MusicObject):
         self.tonic = tonic
 
     def __str__(self):
-        return str(self.note_sequence)
+        return str(self.dict)
 
     def __repr__(self):
-        return str(self.note_sequence)
+        return str(self.dict)
 
     def _set_head(self, head):
         self.validate_type(head, Note)
@@ -71,6 +71,13 @@ class ScaleBase(MusicObject):
                     Note.strip_digits(nte.name) == Note.strip_digits(note.name):
                 return True, i
         return False, None
+
+    @property
+    def dict(self):
+        return {
+            "intervals": self._intervals,
+            "tonic": self._tonic.name
+        }
 
     @property
     def is_major_scale(self):
@@ -154,6 +161,14 @@ class Scale(ScaleBase):
             intervals = self.default_intervals(scale_type)
         super(Scale, self).__init__(tonic, intervals=intervals)
 
+    @property
+    def dict(self):
+        dict_obj = super(Scale, self).dict
+        dict_obj.update({
+            "scale_type": self._scale_type
+        })
+        return dict_obj
+
     @ScaleBase.intervals.setter
     def intervals(self, intervals):
         if len(intervals) != self._num_pitches:
@@ -225,6 +240,12 @@ class DiatonicScale(object):
 
     def __str__(self):
         return str(self._ionian_tonic)
+
+    @property
+    def dict(self):
+        return {
+            "ionian_tonic": self._ionian_tonic
+        }
 
     @property
     def ionian_tonic(self):
