@@ -84,6 +84,15 @@ class TestChord(unittest.TestCase):
             self.assertIn(chd, inversions1)
         self.assertEqual(len(inversions2), 30)
 
+    def test_from_dict(self):
+        c = Chord()
+        fd = Chord.from_dict({}, class_name=Chord)
+        self.assertEqual(c.dict, fd.dict)
+
+        c = Chord(quarter_length=2.0, chord_input=['C3', 'F4', 'A4'])
+        fd = Chord.from_dict({"quarter_length": 2.0, "chord_input": ['C3', 'F4', 'A4']}, class_name=Chord)
+        self.assertEqual(c.dict, fd.dict)
+
 
 class TestPopularChord(unittest.TestCase):
 

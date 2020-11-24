@@ -79,6 +79,16 @@ class TestScaleBase(unittest.TestCase):
         for t in wrong_types:
             self.assertFalse(ScaleBase.is_scale_type(t))
 
+    def test_from_dict(self):
+        s = Scale(tonic="C")
+        fd = Scale.from_dict({"tonic": "C"}, Scale)
+        self.assertEqual(s.dict, fd.dict)
+
+        intervals = [0, 1, 2, 3, 4, 5, 6, 7]
+        s = Scale(tonic="C", scale_type="octatonic", intervals=intervals)
+        fd = Scale.from_dict({"tonic": "C", "scale_type": "octatonic", "intervals": intervals}, Scale)
+        self.assertEqual(s.dict, fd.dict)
+
 
 class TestScale(unittest.TestCase):
 
@@ -147,3 +157,11 @@ class TestDiatonicScale(unittest.TestCase):
         s = DiatonicScale('C')
         s_copy = DiatonicScale(**s.dict)
         self.assertEqual(s.ionian_tonic, s_copy.ionian_tonic)
+
+    def test_from_dict(self):
+        d = DiatonicScale(ionian_tonic="C")
+        fd = DiatonicScale.from_dict({"ionian_tonic": "C"}, DiatonicScale)
+
+        self.assertEqual(d.ionian_mode.dict, fd.ionian_mode.dict)
+        self.assertEqual(d.dorian_mode.dict, fd.dorian_mode.dict)
+        self.assertEqual(d.aeolian_mode.dict, fd.aeolian_mode.dict)

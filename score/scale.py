@@ -1,4 +1,4 @@
-from score.base import ScaleException
+from score.base import ScoreObject, ScaleException
 from score.config import config
 from score.note import Note, MusicObject
 
@@ -224,7 +224,7 @@ class MinorScale(Scale):
                                          scale_type=_scale_type)
 
 
-class DiatonicScale(object):
+class DiatonicScale(ScoreObject):
 
     def __init__(self, ionian_tonic):
         self._ionian_mode = None

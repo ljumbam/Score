@@ -1,5 +1,9 @@
+import json
+import logging
 from score.config import config
 from score.midi import MidiFactory
+
+logger = logging.getLogger(__name__)
 
 
 def unique_permutations(elements):
@@ -60,6 +64,13 @@ class ScoreObject(object):
     def contains(item, collection):
         return item in collection
 
+    @classmethod
+    def from_dict(cls, dict_obj, class_name):
+        if not isinstance(dict_obj, dict):
+            raise ScoreException('Expected an instance of type {}. '
+                                 'Got an instance of type {} instead'
+                                 ''.format('dict', type(dict_obj)))
+        return class_name(**dict_obj)
 
 class ScoreMusicObject(ScoreObject):
 

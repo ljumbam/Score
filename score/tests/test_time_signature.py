@@ -38,3 +38,12 @@ class TestTimeSignature(unittest.TestCase):
         for i in wrong:
             self.assertFalse(TimeSignature.is_time_signature(i))
             self.assertRaises(ValueError, TimeSignature, value=i)
+
+    def test_from_dict(self):
+        fd = TimeSignature.from_dict({}, TimeSignature)
+        ts = TimeSignature()
+        self.assertEqual(fd.dict, ts.dict)
+
+        fd = TimeSignature.from_dict({"value": "3/4"}, TimeSignature)
+        ts = TimeSignature(value="3/4")
+        self.assertEqual(fd.dict, ts.dict)
