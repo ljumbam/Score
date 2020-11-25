@@ -71,7 +71,7 @@ class Chord(NoteBase):
     @property
     def dict(self):
         return {
-            "chord_input": self._input,
+            "chord_input": self.note_names,
             "quarter_length": self._quarter_length
         }
 
