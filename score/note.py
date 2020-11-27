@@ -164,7 +164,7 @@ class NoteBase(MusicObject):
 
 
 class Message(NoteBase):
-
+    """ Message is added in the clef, which has add_message method """
     def __init__(self, msg_type, **parameters):
         self._type = None
         self._parameters = None
